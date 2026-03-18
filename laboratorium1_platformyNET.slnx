@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="laboratorium1_platformyNET/laboratorium1_platformyNET.csproj" />
+  <Project Path="laboratorium1_test/laboratorium1_test.csproj" Id="102c6cc2-c41a-4867-b926-97f9e11bbf9d" />
 </Solution>
