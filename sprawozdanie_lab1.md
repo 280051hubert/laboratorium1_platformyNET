@@ -154,15 +154,26 @@ Console.WriteLine(wynik);
 
 ## 3. Testy jednostkowe
 
-Projekt testów korzysta z frameworka MSTest
+Testy konstruktora klasy Problem
+1. Poprawna liczba wygenerowanych przedmiotów (Constructor_CorrectItemNumber)
+Sprawdza, czy konstruktor klasy Problem tworzy dokładnie tyle przedmiotów, ile zostało podane jako argument n. Test wykonywany jest dla kilku różnych wartości: 5, 10, 20 i 50.
+2. Wartości w dozwolonym zakresie (ValuesInRange)
+Weryfikuje, czy każdy wygenerowany przedmiot ma wartość (Val) oraz wagę (Weigh) mieszczące się w przedziale od 1 do 10 włącznie, zgodnie z wymaganiami zadania.
+3. Deterministyczność generatora – to samo ziarno daje ten sam wynik (SameSeed_SameInstant)
+Sprawdza, czy dwa obiekty Problem utworzone z identyczną liczbą przedmiotów i tym samym ziarnem (seed) generują dokładnie taką samą listę przedmiotów pod względem wartości i wag.
+4. Metoda ToString() zwraca niepusty ciąg znaków (ToString_ReturnsNonEmpty)
+Upewnia się, że wywołanie ToString() na obiekcie Problem nie zwraca wartości null ani pustego ciągu znaków.
 
-```csharp
-[TestClass]
-public sealed class Test1
-{
-    [TestMethod]
-    public void TestMethod1()
-    {
-    }
-}
-```
+Testy metody Solve
+5. Dla wystarczającej pojemności wynik zawiera co najmniej jeden przedmiot (OneItem_oneresult_lista)
+Dla pojemności plecaka równej 10 (każdy przedmiot waży maksymalnie 10) sprawdza, czy algorytm wybiera przynajmniej jeden przedmiot.
+6. Dla pojemności zerowej żaden przedmiot nie wchodzi do plecaka (Zerocap_zeroresult_lista)
+Weryfikuje, że przy pojemności równej 0 wynikowa lista przedmiotów jest pusta, a całkowita wartość i waga wynoszą 0.
+7. Łączna waga wybranych przedmiotów nie przekracza pojemności plecaka (TotWeight_Smoller_Than_Capacity)
+Sprawdza, czy suma wag przedmiotów w wynikowym plecaku jest mniejsza lub równa zadanej pojemności (30). To podstawowy warunek poprawności algorytmu.
+8. Znana instancja daje spójny wynik (KnowInst_KnowResult_lista)
+Dla konkretnej instancji problemu (10 przedmiotów, ziarno 1, pojemność 50) weryfikuje ogólne warunki poprawności: wynik nie jest pusty, waga mieści się w pojemności, a wartość całkowita jest dodatnia.
+9. Suma wartości wybranych przedmiotów zgadza się z polem ValTot (Solve_TotalValueMatchesSumOfSelectedItems)
+Sprawdza spójność wewnętrzną wyniku: oblicza sumę wartości przedmiotów o indeksach zwróconych przez algorytm i porównuje ją z polem ValTot w obiekcie Result.
+10. Suma wag wybranych przedmiotów zgadza się z polem MasTol (Solve_TotalWeightMatchesSumOfSelectedItems)
+Analogicznie do poprzedniego testu – weryfikuje, czy pole MasTol w wynikowym obiekcie odpowiada rzeczywistej sumie wag wybranych przedmiotów.
